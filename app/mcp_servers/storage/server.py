@@ -1,27 +1,27 @@
 from fastmcp import FastMCP
 
+from shared.auth.decorator import (
+    require_auth
+)
+
 from app.mcp_servers.storage.s3_tools import (
     s3_service
 )
 
-from app.mcp_servers.storage.auth import (
-    verify_internal_token
+
+mcp = FastMCP(
+    "storage-server"
 )
 
 
-mcp = FastMCP("storage-server")
-
-
 @mcp.tool()
+@require_auth
 async def generate_upload_url(
-    filename: str,
-    token: str
+    filename: str
 ):
     """
     Generate S3 upload url
     """
-
-    verify_internal_token(token)
 
     return s3_service.generate_upload_url(
         filename
@@ -29,15 +29,13 @@ async def generate_upload_url(
 
 
 @mcp.tool()
+@require_auth
 async def get_file_metadata(
-    filename: str,
-    token: str
+    filename: str
 ):
     """
     Fetch metadata from s3
     """
-
-    verify_internal_token(token)
 
     return s3_service.get_file_metadata(
         filename
