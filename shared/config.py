@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     aws_region: str
     s3_bucket: str
     internal_service_token: SecretStr | None = None
+    gemini_api_key: SecretStr | None = None
+    storage_mcp_url: str
+    document_mcp_url: str
 
     model_config = SettingsConfigDict(
         env_file=".env",
