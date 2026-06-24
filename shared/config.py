@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     gemini_api_key: SecretStr | None = None
     storage_mcp_url: str
     document_mcp_url: str
+    redis_host: str
+    redis_port: int
 
     model_config = SettingsConfigDict(
         env_file=".env",
