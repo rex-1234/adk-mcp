@@ -4,7 +4,12 @@ from app.agent_service.mcp_client import (
     mcp_client
 )
 
+from app.cache.decorators import (
+    cached
+)
 
+
+@cached("upload")
 async def upload_document(
     filename: str
 ) -> str:
@@ -20,6 +25,7 @@ async def upload_document(
     return json.dumps(result)
 
 
+@cached("extract")
 async def extract_document_text(
     filename: str
 ) -> str:
